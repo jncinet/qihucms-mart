@@ -1,0 +1,30 @@
+{
+  "name": "jncinet/qihucms-mart",
+  "description": "qihucms mart management.",
+  "keywords": [
+    "qihucms",
+    "mall",
+    "mart"
+  ],
+  "homepage": "https://www.qihucms.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "zhangye",
+      "email": "y@qilephp.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Qihucms\\Mart\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Qihucms\\Mart\\MartServiceProvider"
+      ]
+    }
+  }
+}
