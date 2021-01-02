@@ -25,7 +25,37 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 ## 使用
 
 ### 路由参数说明
+#### 根据店铺ID或店铺名称查询店铺
++ 请求方式 GET
++ 请求地址 mart/mart-select-by-q?q={关键词}
++ 返回值
+```
+{
+    "data: [
+        {
+            "id": 1,
+            "text": "店铺名称"
+        },
+        ...
+    ],
+    "meta": {},
+    "links": {},
+}
+```
 
+#### 产品分类选择
++ 请求方式 GET
++ 请求地址 mart/mart-goods-category-select
++ 返回值
+```
+[
+    {
+        "id": 1,
+        "text": "店铺名称"
+    },
+    ...
+]
+```
 
 ## 数据库
 ### 店铺表：marts
@@ -60,7 +90,9 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 | user_id           | bigint    |           |           |           | 商家ID     |
 | mart_goods_category_id | bigint |         |           |           | 分类ID     |
 | title             | varchar   | 255       |           |           | 名称       |
-| price             | decimal   |           |           | 0.00      | 图标       |
+| price             | decimal   |           |           | 0.00      | 本站价格    |
+| sc_price          | decimal   |           |           | 0.00      | 市场价格    |
+| pt_price          | decimal   |           |           | 0.00      | 拼团价格    |
 | commission        | decimal   |           |           | 0.00      | 佣金       |
 | stock             | smallint  |           |           | 1         | 库存       |
 | thumbnail         | varchar   | 255       | Y         | NULL      | 商品缩略图  |
@@ -69,6 +101,7 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 | is_shelves        | tinyint   |           |           | 0         | 是否上架    |
 | is_new            | tinyint   |           |           | 0         | 是否新品    |
 | is_hot            | tinyint   |           |           | 0         | 是否热销    |
+| is_virtual        | tinyint   |           |           | 0         | 是否虚拟商品 |
 | link              | varchar   | 255       | Y         | NULL      | 产品外链   |
 | status            | tinyint   |           |           | 0         | 状态      |
 | created_at        | timestamp |           | Y         | NULL      | 创建时间   |

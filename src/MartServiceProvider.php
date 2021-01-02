@@ -6,9 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use Qihucms\Mart\Commands\CopyDatabaseCommand;
 use Qihucms\Mart\Commands\CopyGoodsCommand;
 use Qihucms\Mart\Commands\CopyOrdersCommand;
-use Qihucms\Mart\Commands\InstallCommand;
-use Qihucms\Mart\Commands\UninstallCommand;
-use Qihucms\Mart\Commands\UpgradeCommand;
 
 class MartServiceProvider extends ServiceProvider
 {
@@ -31,9 +28,6 @@ class MartServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                InstallCommand::class,
-                UninstallCommand::class,
-                UpgradeCommand::class,
                 // 将原商城数据复制到新表中
                 CopyOrdersCommand::class,
                 CopyDatabaseCommand::class,

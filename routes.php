@@ -24,7 +24,8 @@ Route::group([
     'as' => 'api.'
 ], function (Router $router) {
     $router->get('mart-select-by-q', 'MartController@adminGetMartByQ')->name('mart-select-by-q');
-    $router->get('mart-goods-category-select', 'CategoryController@adminSelectCategory')->name('mart-goods-category-select');
+    $router->get('mart-goods-category-select', 'CategoryController@adminSelectCategory')
+        ->name('mart-goods-category-select');
 });
 
 // 后台

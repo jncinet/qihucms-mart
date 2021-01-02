@@ -39,15 +39,6 @@ class CreateMartGoodsTable extends Migration
             $table->boolean('status')->default(0)->comment('状态');
             $table->timestamps();
         });
-
-        // 扩展积分商城、拼团
-        Schema::create('mart_goods_prices', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('mart_goods_id')->index()->comment('支付类型ID');
-            $table->unsignedBigInteger('currency_type_id')->index()->comment('支付类型ID');
-            $table->unsignedDecimal('price')->default(0)->comment('价格');
-            $table->timestamps();
-        });
     }
 
     /**

@@ -17,6 +17,7 @@ class MartGoods extends Model
     protected $casts = [
         'media_list' => 'array',
         'stock' => 'integer',
+        'commission' => 'decimal:2',
         'price' => 'decimal:2',
         'pt_price' => 'decimal:2',
         'sc_price' => 'decimal:2',
@@ -56,6 +57,18 @@ class MartGoods extends Model
     public function scopeOfHot($query, $type)
     {
         return $query->where('is_hot', $type);
+    }
+
+    /**
+     * 是否虚拟
+     *
+     * @param $query
+     * @param $type
+     * @return mixed
+     */
+    public function scopeOfVirtual($query, $type)
+    {
+        return $query->where('is_virtual', $type);
     }
 
     /**

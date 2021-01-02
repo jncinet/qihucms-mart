@@ -21,7 +21,7 @@ class MartRepository
      */
     public function findMartByUserId(int $user_id)
     {
-        return $this->mart->findOrFail($user_id);
+        return $this->mart->find($user_id);
     }
 
     /**
