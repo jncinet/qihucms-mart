@@ -21,6 +21,10 @@ class CreateMartGoodsTable extends Migration
             $table->string('title')->comment('产品名称');
             $table->unsignedDecimal('price', 10, 2)->default(0)
                 ->comment('本站价格');
+            $table->unsignedDecimal('sc_price', 10, 2)->default(0)
+                ->comment('市场价格');
+            $table->unsignedDecimal('pt_price', 10, 2)->default(0)
+                ->comment('拼团价格');
             $table->unsignedDecimal('commission', 10, 2)->default(0)
                 ->comment('商品佣金');
             $table->unsignedSmallInteger('stock')->default(1)->comment('库存');
@@ -30,8 +34,18 @@ class CreateMartGoodsTable extends Migration
             $table->boolean('is_shelves')->default(0)->comment('是否上架');
             $table->boolean('is_new')->default(0)->comment('是否新品');
             $table->boolean('is_hot')->default(0)->comment('是否热销');
+            $table->boolean('is_virtual')->default(0)->comment('是否虚拟商品');
             $table->string('link')->nullable()->comment('产品外链');
             $table->boolean('status')->default(0)->comment('状态');
+            $table->timestamps();
+        });
+
+        // 扩展积分商城、拼团
+        Schema::create('mart_goods_prices', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('mart_goods_id')->index()->comment('支付类型ID');
+            $table->unsignedBigInteger('currency_type_id')->index()->comment('支付类型ID');
+            $table->unsignedDecimal('price')->default(0)->comment('价格');
             $table->timestamps();
         });
     }

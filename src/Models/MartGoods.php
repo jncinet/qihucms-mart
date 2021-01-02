@@ -10,11 +10,16 @@ class MartGoods extends Model
 {
     protected $fillable = [
         'user_id', 'mart_goods_category_id', 'title', 'price', 'stock', 'thumbnail', 'media_list',
-        'content', 'is_shelves', 'is_new', 'is_hot', 'link', 'status', 'commission'
+        'content', 'is_shelves', 'is_new', 'is_hot', 'link', 'status', 'commission', 'is_virtual',
+        'pt_price', 'sc_price'
     ];
 
     protected $casts = [
         'media_list' => 'array',
+        'stock' => 'integer',
+        'price' => 'decimal:2',
+        'pt_price' => 'decimal:2',
+        'sc_price' => 'decimal:2',
     ];
 
     /**

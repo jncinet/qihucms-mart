@@ -36,6 +36,12 @@ class GoodsController extends Controller
             $filter->like('mart.name', __('mart::mart.name'));
             $filter->equal('mart_goods_category.title', __('mart::category.title'))
                 ->select(route('api.mart-goods-category-select'));
+            $filter->equal('is_new', __('mart::goods.is_new.label'))
+                ->select(__('mart::goods.is_new.value'));
+            $filter->equal('is_hot', __('mart::goods.is_hot.label'))
+                ->select(__('mart::goods.is_hot.value'));
+            $filter->equal('is_virtual', __('mart::goods.is_virtual.label'))
+                ->select(__('mart::goods.is_virtual.value'));
             $filter->equal('status', __('mart::goods.status.label'))
                 ->select(__('mart::goods.status.value'));
         });
@@ -44,6 +50,7 @@ class GoodsController extends Controller
         $grid->column('mart.name', __('mart::goods.user_id'))->limit(16);
         $grid->column('title', __('mart::goods.title'))->limit(36);
         $grid->column('price', __('mart::goods.price'));
+        $grid->column('pt_price', __('mart::goods.pt_price'));
         $grid->column('is_shelves', __('mart::goods.is_shelves.label'))
             ->select(__('mart::goods.is_shelves.value'));
         $grid->column('is_new', __('mart::goods.is_new.label'))
@@ -71,14 +78,21 @@ class GoodsController extends Controller
         $show->field('goods_category_id', __('mart::goods.goods_category_id'));
         $show->field('title', __('mart::goods.title'));
         $show->field('price', __('mart::goods.price'));
+        $show->field('sc_price', __('mart::goods.sc_price'));
+        $show->field('pt_price', __('mart::goods.pt_price'));
         $show->field('commission', __('mart::goods.commission'));
         $show->field('stock', __('mart::goods.stock'));
         $show->field('thumbnail', __('mart::goods.thumbnail'))->image();
         $show->field('media_list', __('mart::goods.media_list'))->carousel();
         $show->field('content', __('mart::goods.content'))->unescape();
-        $show->field('is_shelves', __('mart::goods.is_shelves.label'))->using(__('mart::goods.is_shelves.value'));
-        $show->field('is_new', __('mart::goods.is_new.label'))->using(__('mart::goods.is_new.value'));
-        $show->field('is_hot', __('mart::goods.is_hot.label'))->using(__('mart::goods.is_hot.value'));
+        $show->field('is_shelves', __('mart::goods.is_shelves.label'))
+            ->using(__('mart::goods.is_shelves.value'));
+        $show->field('is_new', __('mart::goods.is_new.label'))
+            ->using(__('mart::goods.is_new.value'));
+        $show->field('is_hot', __('mart::goods.is_hot.label'))
+            ->using(__('mart::goods.is_hot.value'));
+        $show->field('is_virtual', __('mart::goods.is_virtual.label'))
+            ->using(__('mart::goods.is_virtual.value'));
         $show->field('link', __('mart::goods.link'))->link();
         $show->field('status', __('mart::goods.status.label'))
             ->using(__('mart::goods.status.value'));
@@ -108,8 +122,14 @@ class GoodsController extends Controller
         $form->select('mart_goods_category_id', __('mart::goods.mart_goods_category_id'))
             ->options(route('api.mart-goods-category-select'));
         $form->text('title', __('mart::goods.title'))->required();
-        $form->currency('price', __('mart::goods.price'))->symbol('¥')->default(0.00);
-        $form->currency('commission', __('mart::goods.commission'))->symbol('¥')->default(0.00);
+        $form->currency('price', __('mart::goods.price'))
+            ->symbol(config('qihu.currency_symbol', '¥'))->default(0.00);
+        $form->currency('sc_price', __('mart::goods.sc_price'))
+            ->symbol(config('qihu.currency_symbol', '¥'))->default(0.00);
+        $form->currency('pt_price', __('mart::goods.pt_price'))
+            ->symbol(config('qihu.currency_symbol', '¥'))->default(0.00);
+        $form->currency('commission', __('mart::goods.commission'))
+            ->symbol(config('qihu.currency_symbol', '¥'))->default(0.00);
         $form->number('stock', __('mart::goods.stock'))->min(0)->default(1);
         $form->image('thumbnail', __('mart::goods.thumbnail'))
             ->uniqueName()
@@ -121,11 +141,13 @@ class GoodsController extends Controller
             ->move('mart/carousel');
         $form->UEditor('content', __('mart::goods.content'));
         $form->select('is_shelves', __('mart::goods.is_shelves.label'))
-            ->default('是')->options(__('mart::goods.is_shelves.value'));
+            ->default(0)->options(__('mart::goods.is_shelves.value'));
         $form->select('is_new', __('mart::goods.is_new.label'))
-            ->default('否')->options(__('mart::goods.is_new.value'));
+            ->default(0)->options(__('mart::goods.is_new.value'));
         $form->select('is_hot', __('mart::goods.is_hot.label'))
-            ->default('否')->options(__('mart::goods.is_hot.value'));
+            ->default(0)->options(__('mart::goods.is_hot.value'));
+        $form->select('is_virtual', __('mart::goods.is_virtual.label'))
+            ->default(0)->options(__('mart::goods.is_hot.value'));
         $form->text('link', __('mart::goods.link'));
         $form->select('status', __('mart::goods.status.label'))
             ->options(__('mart::goods.status.value'));
