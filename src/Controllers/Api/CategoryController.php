@@ -2,10 +2,10 @@
 
 namespace Qihucms\Mart\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Qihucms\Mart\Repositories\MartGoodsCategoryRepository;
 
-class CategoryController extends ApiController
+class CategoryController extends Controller
 {
     protected $category;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Qihucms\Mall\Controllers\Wap;
+namespace Qihucms\Mall\Controllers\Pc;
 
 use App\Http\Controllers\Controller;
 use Qihucms\Mart\Repositories\MartRepository;

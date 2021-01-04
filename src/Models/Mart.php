@@ -11,8 +11,8 @@ class Mart extends Model
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'user_id', 'name', 'logo', 'service', 'manager_phone', 'banner',
-        'about', 'level', 'return_address', 'status'
+        'user_id', 'name', 'logo', 'banner', 'return_name', 'return_phone', 'return_address',
+        'about', 'level', 'status'
     ];
 
     /**

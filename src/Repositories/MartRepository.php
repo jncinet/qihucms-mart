@@ -19,7 +19,7 @@ class MartRepository
      * @param int $user_id
      * @return mixed
      */
-    public function findMartByUserId(int $user_id)
+    public function findMartById(int $user_id)
     {
         return $this->mart->find($user_id);
     }
@@ -36,5 +36,64 @@ class MartRepository
             ->orWhere('name', 'like', '%' . $keyword . '%')
             ->select('user_id as id', 'name as text')
             ->paginate();
+    }
+
+    /**
+     * 开通店铺
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function createMart($data = [])
+    {
+        return $this->mart->create($data);
+    }
+
+    /**
+     * @param string $keyword
+     * @param array $orderBy
+     * @param int $limit
+     * @return mixed
+     */
+    public function getMartPaginate($keyword = null, $orderBy = [], $limit = 15)
+    {
+        $model = $this->mart->where('status', 1);
+
+        if (!empty($keyword)) {
+            $keyword = preg_split('/\s+/', $keyword, -1, PREG_SPLIT_NO_EMPTY);
+
+            if (count($keyword) > 0) {
+                $model = $model->where(function ($query) use ($keyword){
+                    foreach ($keyword as $value) {
+                        $query->orWhere('name', 'like', '%' . $value . '%');
+                    }
+                });
+            }
+        }
+
+
+        if (count($orderBy) > 0) {
+            foreach ($orderBy as $key => $value) {
+                $model = $model->orderBy($key, $value);
+            }
+        }
+
+        return $model->paginate($limit);
+    }
+
+    /**
+     * 注销店铺（修改店铺状态为2）
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function cancelMart($id)
+    {
+        return $this->mart->where('user_id', $id)->update(['status' => 2]);
+    }
+
+    public function updateMart()
+    {
+
     }
 }

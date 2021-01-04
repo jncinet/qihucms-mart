@@ -57,6 +57,62 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 ]
 ```
 
+#### 店铺列表
++ 请求方式 GET
++ 请求地址 mart/marts
++ 请求参数：
+    - kw: "关键词" // 根据关键词查找店铺
+    - exp: asc|desc // 按店铺等级排序
+    - limit: 15 // 每页显示数
+    - page: 1 // 页码
++ 返回值
+```
+[
+    {
+        'id' => 1, // 店铺ID
+        'name' => '店铺名称',
+        'logo' => '店铺LOGO',
+        'banner' => 'BANNER',
+        'return_name' => '退货收货人',
+        'return_phone' => '退货收货电话',
+        'return_address' => '退货收货地址',
+        'about' => '店铺介绍',
+        'exp' => 100,
+        'status' => 1, // 店铺状态 【'等待审核', '开通成功'】
+        'created_at' => '1周前',
+    },
+    ...
+]
+```
+
+#### 店铺开通
++ 请求方式 POST
++ 请求地址 mart/marts
++ 请求参数：'', '', '', '', '', '', ''
+    - name: "七狐软件" // 店铺名称
+    - logo: 'mart/logo/a.jpg' // 店铺LOGO
+    - banner: 'mart/banner/b.png' // BANNER
+    - return_name: '张三' // 退货收货人
+    - return_phone: '1898888***8' // 退货收货电话
+    - return_address: '安徽池州' // 退货收货地址
+    - about: '详细介绍' // 店铺介绍
++ 返回值
+```
+{
+    'id' => 1, // 店铺ID
+    'name' => '店铺名称',
+    'logo' => '店铺LOGO',
+    'banner' => 'BANNER',
+    'return_name' => '退货收货人',
+    'return_phone' => '退货收货电话',
+    'return_address' => '退货收货地址',
+    'about' => '店铺介绍',
+    'exp' => 100,
+    'status' => 1, // 店铺状态 【'等待审核', '开通成功'】
+    'created_at' => '1周前',
+}
+```
+
 ## 数据库
 ### 店铺表：marts
 | Field             | Type      | Length    | AllowNull | Default   | Comment   |
@@ -64,11 +120,12 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 | user_id           | bigint    |           |           |           | 商家ID     |
 | name              | varchar   | 255       |           |           | 店铺名称   |
 | logo              | varchar   | 255       |           |           | 店铺标志   |
-| manager           | varchar   | 255       | Y         | NULL      | 管理员联系方式 |
-| service           | varchar   | 255       | Y         | NULL      | 客服联系方式 |
 | banner            | varchar   | 255       | Y         | NULL      | 店铺banner |
+| return_name       | varchar   | 255       | Y         | NULL      | 退货收货人  |
+| return_phone      | varchar   | 255       | Y         | NULL      | 退货收货电话 |
+| return_address    | varchar   | 255       | Y         | NULL      | 退货收货地址 |
 | about             | text      |           | Y         | NULL      | 店铺介绍    |
-| level             | int       |           |           | 0         | 等级      |
+| exp               | int       |           |           | 0         | 等级      |
 | status            | tinyint   |           |           | 0         | 状态      |
 | created_at        | timestamp |           | Y         | NULL      | 创建时间   |
 | updated_at        | timestamp |           | Y         | NULL      | 更新时间   |
@@ -97,7 +154,7 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 | stock             | smallint  |           |           | 1         | 库存       |
 | thumbnail         | varchar   | 255       | Y         | NULL      | 商品缩略图  |
 | media_list        | json      |           | Y         | NULL      | 展示图片列表 |
-| content           | longtext  |           |           | NULL      | 产品介绍    |
+| content           | longtext  |           | Y         |           | 产品介绍    |
 | is_shelves        | tinyint   |           |           | 0         | 是否上架    |
 | is_new            | tinyint   |           |           | 0         | 是否新品    |
 | is_hot            | tinyint   |           |           | 0         | 是否热销    |

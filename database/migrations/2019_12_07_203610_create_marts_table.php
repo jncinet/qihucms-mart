@@ -16,12 +16,13 @@ class CreateMartsTable extends Migration
         Schema::create('marts', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->primary()->comment('商家ID');
             $table->string('name')->comment('店铺名称');
-            $table->string('logo')->comment('店铺标志');
-            $table->string('manager')->nullable()->comment('店铺管理员联系方式');
-            $table->string('service')->nullable()->comment('客服联系方式');
-            $table->string('banner')->nullable()->comment('店铺banner');
+            $table->string('logo')->nullable()->comment('店铺标志');
+            $table->string('banner')->nullable()->comment('banner');
+            $table->string('return_name')->nullable()->comment('退货收货人');
+            $table->string('return_phone')->nullable()->comment('退货收货电话');
+            $table->string('return_address')->nullable()->comment('退货收货地址');
             $table->text('about')->nullable()->comment('店铺介绍');
-            $table->unsignedInteger('level')->default(0)->comment('等级');
+            $table->unsignedInteger('exp')->default(0)->comment('经验');
             $table->boolean('status')->default(0)->comment('状态');
             $table->timestamps();
         });

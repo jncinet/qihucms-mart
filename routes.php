@@ -2,11 +2,12 @@
 
 use Illuminate\Routing\Router;
 
-// 手机端
+// 电脑端
 Route::group([
+    'domain' => config('qihu.pc_domain'),
     'prefix' => config('qihu.mart_prefix', 'mart'),
     // 控制器命名空间
-    'namespace' => 'Qihucms\Mart\Controllers\Wap',
+    'namespace' => 'Qihucms\Mart\Controllers\Pc',
     'middleware' => ['web']
 ], function (Router $router) {
 //    $router->resource('articles', 'ArticlesController');
@@ -18,14 +19,17 @@ Route::group([
 Route::group([
     // 页面URL前缀
     'prefix' => config('qihu.mart_prefix', 'mart'),
-    // 控制器命名空间
     'namespace' => 'Qihucms\Mart\Controllers\Api',
     'middleware' => ['api'],
     'as' => 'api.'
 ], function (Router $router) {
+    // 选择店铺
     $router->get('mart-select-by-q', 'MartController@adminGetMartByQ')->name('mart-select-by-q');
+    // 选择商品分类
     $router->get('mart-goods-category-select', 'CategoryController@adminSelectCategory')
         ->name('mart-goods-category-select');
+    // 店铺管理
+    $router->apiResource('marts', 'MartController');
 });
 
 // 后台
