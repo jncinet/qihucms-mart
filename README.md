@@ -69,17 +69,17 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 ```
 [
     {
-        'id' => 1, // 店铺ID
-        'name' => '店铺名称',
-        'logo' => '店铺LOGO',
-        'banner' => 'BANNER',
-        'return_name' => '退货收货人',
-        'return_phone' => '退货收货电话',
-        'return_address' => '退货收货地址',
-        'about' => '店铺介绍',
-        'exp' => 100,
-        'status' => 1, // 店铺状态 【'等待审核', '开通成功'】
-        'created_at' => '1周前',
+        'id': 1, // 店铺ID
+        'name': '店铺名称',
+        'logo': '店铺LOGO',
+        'banner': 'BANNER',
+        'return_name': '退货收货人',
+        'return_phone': '退货收货电话',
+        'return_address': '退货收货地址',
+        'about': '店铺介绍',
+        'exp': 100,
+        'status': 1, // 店铺状态 【'等待审核', '开通成功'】
+        'created_at': '1周前',
     },
     ...
 ]
@@ -88,7 +88,7 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 #### 店铺开通
 + 请求方式 POST
 + 请求地址 mart/marts
-+ 请求参数：'', '', '', '', '', '', ''
++ 请求参数
     - name: "七狐软件" // 店铺名称
     - logo: 'mart/logo/a.jpg' // 店铺LOGO
     - banner: 'mart/banner/b.png' // BANNER
@@ -99,17 +99,71 @@ $ php artisan vendor:publish --provider="Qihucms\Mart\MartServiceProvider"
 + 返回值
 ```
 {
-    'id' => 1, // 店铺ID
-    'name' => '店铺名称',
-    'logo' => '店铺LOGO',
-    'banner' => 'BANNER',
-    'return_name' => '退货收货人',
-    'return_phone' => '退货收货电话',
-    'return_address' => '退货收货地址',
-    'about' => '店铺介绍',
-    'exp' => 100,
-    'status' => 1, // 店铺状态 【'等待审核', '开通成功'】
-    'created_at' => '1周前',
+    'id': 1, // 店铺ID
+    'name': '店铺名称',
+    'logo': '店铺LOGO',
+    'banner': 'BANNER',
+    'return_name': '退货收货人',
+    'return_phone': '退货收货电话',
+    'return_address': '退货收货地址',
+    'about': '店铺介绍',
+    'exp': 100,
+    'status': 1, // 店铺状态 【'等待审核', '开通成功'】
+    'created_at': '1周前',
+}
+```
+
+#### 店铺详细
++ 请求方式 GET
++ 请求地址 mart/marts/{id=店铺ID}
++ 返回值
+```
+{
+    'id': 1, // 店铺ID
+    'name': '店铺名称',
+    'logo': '店铺LOGO',
+    'banner': 'BANNER',
+    'return_name': '退货收货人',
+    'return_phone': '退货收货电话',
+    'return_address': '退货收货地址',
+    'about': '店铺介绍',
+    'exp': 100,
+    'status': 1, // 店铺状态 【'等待审核', '开通成功'】
+    'created_at': '1周前',
+}
+```
+
+#### 店铺修改
++ 请求方式 PATCH|PUT
++ 请求地址 mart/marts/{id=店铺ID}
++ 请求参数
+    - name: "七狐软件" // 店铺名称
+    - logo: 'mart/logo/a.jpg' // 店铺LOGO
+    - banner: 'mart/banner/b.png' // BANNER
+    - return_name: '张三' // 退货收货人
+    - return_phone: '1898888***8' // 退货收货电话
+    - return_address: '安徽池州' // 退货收货地址
+    - about: '详细介绍' // 店铺介绍
++ 返回值
+```
+{
+    "status": "SUCCESS",
+    "data": {
+        "id": 1 // 店铺ID
+    }
+}
+```
+
+#### 店铺注销
++ 请求方式 DELETE
++ 请求地址 mart/marts/{id=店铺ID}
++ 返回值
+```
+{
+    "status": "SUCCESS",
+    "data": {
+        "id": 1 // 店铺ID
+    }
 }
 ```
 
